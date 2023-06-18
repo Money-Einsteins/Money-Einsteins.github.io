@@ -3,48 +3,58 @@
 <head>
   <title>Money Einstein's - Sustainable Products</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="script.js"></script>
 </head>
 <body>
   <header>
-    <h1>Money Einstein's</h1>
+    <img id="logo" src="money_einsteins_logo.jpg" alt="Money Einstein's Logo">
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us</a></li>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
   
   <main>
-    <img id="main-image" src="money_einsteins_logo.jpg" alt="Money Einstein's Logo">
-    
-    <div id="products-container">
-      <div class="product-card">
-        <img class="product-image" src="tshirt.jpg" alt="T-Shirt">
-        <h2 class="product-title">Organic Cotton T-Shirt</h2>
-        <p class="product-price">$XX.XX</p>
-        <div class="product-quantity">
-          <label for="tshirt-quantity">Quantity:</label>
-          <input type="number" id="tshirt-quantity" min="1" value="1">
-        </div>
-        <button class="add-to-cart-button">Add to Cart</button>
-      </div>
+    <section id="home" class="section">
+      <h1>Welcome to Money Einstein's</h1>
+      <p>Your destination for sustainable products.</p>
+    </section>
 
-      <div class="product-card">
-        <img class="product-image" src="pencil_case.jpg" alt="Pencil Case">
-        <h2 class="product-title">Recycled Material Pencil Case</h2>
-        <p class="product-price">$XX.XX</p>
-        <div class="product-quantity">
-          <label for="pencil-case-quantity">Quantity:</label>
-          <input type="number" id="pencil-case-quantity" min="1" value="1">
+    <section id="shop" class="section">
+      <h2>Shop</h2>
+      <div id="products-container">
+        <div class="product-card">
+          <a href="tshirt.html">
+            <img class="product-image" src="tshirt.jpg" alt="T-Shirt">
+            <h3 class="product-title">Organic Cotton T-Shirt</h3>
+            <p class="product-description">Premium quality organic cotton T-shirt for a comfortable and eco-friendly wear.</p>
+            <p class="product-price">$35.20</p>
+          </a>
         </div>
-        <button class="add-to-cart-button">Add to Cart</button>
+        <div class="product-card">
+          <a href="pencil_case.html">
+            <img class="product-image" src="pencil_case.jpg" alt="Pencil Case">
+            <h3 class="product-title">Recycled Material Pencil Case</h3>
+            <p class="product-description">Eco-friendly pencil case with a fingerprint scanner, retractable foldable solar panels, and ample storage space that comes readly equipped with all writing materials such as every colour of pen, eraser, and 10cm ruler </p>
+            <p class="product-price">$19.99</p>
+          </a>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2>About Us</h2>
+      <p>We are Money Enstine's a Shark Tank company formed by A group filled with like minded indivisuals with a common goal to make money.</p>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact Us</h2>
+      <p>You can reach us via email at info@moneyeinstein.com or call us at +1-123-456-7890.</p>
+    </section>
   </main>
-  
-  <script src="script.js"></script>
 </body>
 </html>
