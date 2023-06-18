@@ -76,7 +76,7 @@ main {
 
 .product-card .product-image {
   width: 200px;
-  height: 200px;
+  height: 250px;
   object-fit: cover;
   margin-bottom: 10px;
 }
