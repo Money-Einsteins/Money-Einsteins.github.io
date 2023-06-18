@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -5,58 +9,97 @@ body {
 }
 
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #f4f4f4;
   padding: 20px;
-  text-align: center;
+  z-index: 100;
 }
 
-#main-image {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
+#logo {
+  width: 150px;
+  height: 150px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+main {
+  padding-top: 180px;
+}
+
+.section {
+  padding: 50px;
+}
+
+.section h1,
+.section h2 {
+  text-align: center;
 }
 
 #products-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  margin: 20px;
 }
 
 .product-card {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 20px;
+  margin: 20px;
   width: 300px;
   text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  transition: all 0.3s ease;
 }
 
-.product-image {
-  max-width: 200px;
-  height: auto;
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-card .product-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
   margin-bottom: 10px;
 }
 
-.product-title {
+.product-card .product-title {
+  margin-bottom: 5px;
+}
+
+.product-card .product-description {
+  margin-bottom: 10px;
+}
+
+.product-card .product-price {
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
-.product-price {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
+@media screen and (max-width: 768px) {
+  #logo {
+    width: 100px;
+    height: 100px;
+  }
 
-.product-quantity {
-  margin-bottom: 10px;
-}
-
-.add-to-cart-button {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  .product-card {
+    width: 100%;
+  }
 }
