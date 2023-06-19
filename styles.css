@@ -21,6 +21,9 @@ header {
 #logo {
   width: 150px;
   height: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 nav ul {
@@ -72,6 +75,10 @@ main {
 .product-card:hover {
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.product-image{
+   width: 100px;
+  height: 150px;
 }
 
 .product-card .product-image {
