@@ -3,7 +3,7 @@
 <head>
   <title>Money Einstein's - T-Shirt</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -25,9 +25,38 @@
       <h2 class="product-title">Organic Cotton T-Shirt</h2>
       <p class="product-description">Premium quality organic cotton T-shirt for a comfortable and eco-friendly wear.</p>
       <p class="product-price">$35.20</p>
-      <!-- Add more details about the product if needed -->
+      
       <button class="add-to-cart">Add to Cart</button>
     </div>
+
+    <script>
+      // Add to cart functionality
+      const addToCartButton = document.querySelector('.add-to-cart');
+      const cartItemsContainer = document.getElementById('cart-items');
+
+      addToCartButton.addEventListener('click', () => {
+        const productImage = document.querySelector('.product-image').src;
+        const productTitle = document.querySelector('.product-title').textContent;
+        const productPrice = document.querySelector('.product-price').textContent;
+
+        const item = { productImage, productTitle, productPrice };
+        cartItems.push(item);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+          <img src="${productImage}" alt="Product Image">
+          <div class="product-info">
+            <h3 class="product-title">${productTitle}</h3>
+            <p class="product-price">${productPrice}</p>
+          </div>
+          <button class="remove-from-cart">Remove</button>
+        `;
+
+        cartItemsContainer.appendChild(cartItem);
+      });
+    </script>
   </main>
 </body>
 </html>
