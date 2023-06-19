@@ -18,6 +18,10 @@ header {
   z-index: 100;
 }
 
+a{
+text-decoration:none;
+}
+
 #logo {
   width: 150px;
   height: 150px;
