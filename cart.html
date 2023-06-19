@@ -23,5 +23,26 @@
     <h2>Cart</h2>
     <div id="cart-items"></div>
   </main>
+
+  <script>
+    // Retrieve cart items from local storage and display them
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    cartItems.forEach(item => {
+      const cartItem = document.createElement('div');
+      cartItem.classList.add('cart-item');
+      cartItem.innerHTML = `
+        <img src="${item.productImage}" alt="Product Image">
+        <div class="product-info">
+          <h3 class="product-title">${item.productTitle}</h3>
+          <p class="product-price">${item.productPrice}</p>
+        </div>
+        <button class="remove-from-cart">Remove</button>
+      `;
+
+      cartItemsContainer.appendChild(cartItem);
+    });
+  </script>
 </body>
 </html>
