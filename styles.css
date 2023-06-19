@@ -87,8 +87,8 @@ main {
 }
 
 .product-card .product-image {
-  width: 200px;
-  height: 250px;
+  width: 277px;
+  height: 300px;
   object-fit: cover;
   margin-bottom: 10px;
 }
