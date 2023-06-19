@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Money Einstein's - Recycled Material Pencil Case</title>
+  <title>Money Einstein's - Pencil Case</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -21,13 +21,42 @@
   
   <main>
     <div class="product-details">
-      <img class="product-image" src="pencil_case.jpg" alt="Pencil Case">
-      <h2 class="product-title">Recycled Material Pencil Case</h2>
-      <p class="product-description">Eco-friendly pencil case with a fingerprint scanner, retractable foldable solar panels, and ample storage space that comes ready equipped with all writing materials such as every color of pen, eraser, and 10cm ruler.</p>
+      <img class="product-image" src="pencil_case.png" alt="Pencil Case">
+      <h2 class="product-title">Leather Pencil Case</h2>
+      <p class="product-description">Genuine leather pencil case with multiple compartments for organized storage.</p>
       <p class="product-price">$19.99</p>
       
       <button class="add-to-cart">Add to Cart</button>
     </div>
+
+    <script>
+      // Add to cart functionality
+      const addToCartButton = document.querySelector('.add-to-cart');
+      const cartItemsContainer = document.getElementById('cart-items');
+
+      addToCartButton.addEventListener('click', () => {
+        const productImage = document.querySelector('.product-image').src;
+        const productTitle = document.querySelector('.product-title').textContent;
+        const productPrice = document.querySelector('.product-price').textContent;
+
+        const item = { productImage, productTitle, productPrice };
+        cartItems.push(item);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+          <img src="${productImage}" alt="Product Image">
+          <div class="product-info">
+            <h3 class="product-title">${productTitle}</h3>
+            <p class="product-price">${productPrice}</p>
+          </div>
+          <button class="remove-from-cart">Remove</button>
+        `;
+
+        cartItemsContainer.appendChild(cartItem);
+      });
+    </script>
   </main>
 </body>
 </html>
