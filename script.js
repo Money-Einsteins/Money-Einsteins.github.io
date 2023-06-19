@@ -3,11 +3,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
 
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
+    const target = document.querySelector(this.getAttribute('href'));
+    const offsetTop = target.offsetTop;
+
+    window.scrollTo({
+      top: offsetTop,
       behavior: 'smooth'
     });
   });
 });
+
 // Add to cart functionality
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const cartItemsContainer = document.getElementById('cart-items');
@@ -32,4 +37,17 @@ addToCartButtons.forEach(button => {
 
     cartItemsContainer.appendChild(cartItem);
   });
+});
+
+// Open cart functionality
+const viewCartButton = document.getElementById('view-cart');
+const cartContainer = document.getElementById('cart-container');
+const closeCartButton = document.getElementById('close-cart');
+
+viewCartButton.addEventListener('click', () => {
+  cartContainer.classList.add('open');
+});
+
+closeCartButton.addEventListener('click', () => {
+  cartContainer.classList.remove('open');
 });
