@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartItem = createCartItemElement(item);
     cartItemsContainer.appendChild(cartItem);
   });
+
+  updateCartNotificationDot(cartItems.length);
 });
 
 // Add to cart functionality
@@ -31,13 +33,13 @@ document.addEventListener('click', event => {
     const productDetails = event.target.closest('.product-details');
     const productImage = productDetails.querySelector('.product-image').src;
     const productTitle = productDetails.querySelector('.product-title').textContent;
-    const productPrice = productDetails.querySelector('.product-price').textContent;
+    const productPrice = parseFloat(productDetails.querySelector('.product-price').textContent);
 
     const item = {
       productImage,
       productTitle,
       productPrice,
-      quantity: 1  // Default quantity is set to 1
+      quantity: 1 // Default quantity is set to 1
     };
 
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -56,6 +58,10 @@ document.addEventListener('click', event => {
     const cartItemsContainer = document.getElementById('cart-items');
     const cartItem = createCartItemElement(item);
     cartItemsContainer.appendChild(cartItem);
+
+    updateCartNotificationDot(cartItems.length);
+
+    animateCartNotificationDot();
   }
 });
 
@@ -66,13 +72,22 @@ document.addEventListener('click', event => {
     const productTitle = cartItem.querySelector('.product-title').textContent;
 
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const updatedCartItems = cartItems.filter(
-      item => item.productTitle !== productTitle
-    );
+    const updatedCartItems = cartItems.map(item => {
+      if (item.productTitle === productTitle) {
+        if (item.quantity > 1) {
+          item.quantity--; // Decrement the quantity if greater than 1
+        } else {
+          return null; // Remove the item from the array if quantity becomes 0
+        }
+      }
+      return item;
+    }).filter(item => item !== null);
 
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
     cartItem.remove();
+
+    updateCartNotificationDot(updatedCartItems.length);
   }
 });
 
@@ -84,11 +99,37 @@ function createCartItemElement(item) {
     <img src="${item.productImage}" alt="Product Image">
     <div class="product-info">
       <h3 class="product-title">${item.productTitle}</h3>
-      <p class="product-price">${item.productPrice}</p>
-      <div class="quantity">Quantity: ${item.quantity}</div>
+      <p class="product-price">Price: $${(item.productPrice * item.quantity).toFixed(2)}</p>
+      <div class="quantity">
+        <button class="decrement-quantity">-</button>
+        <span>${item.quantity}</span>
+        <button class="increment-quantity">+</button>
+      </div>
     </div>
     <button class="remove-from-cart">Remove</button>
   `;
 
   return cartItem;
+}
+
+// Utility function to update the cart notification dot
+function updateCartNotificationDot(quantity) {
+  const cartNotificationDot = document.getElementById('cart-notification-dot');
+
+  if (quantity > 0) {
+    cartNotificationDot.textContent = quantity;
+    cartNotificationDot.style.display = 'block';
+  } else {
+    cartNotificationDot.style.display = 'none';
+  }
+}
+
+// Utility function to animate the cart notification dot
+function animateCartNotificationDot() {
+  const cartNotificationDot = document.getElementById('cart-notification-dot');
+  cartNotificationDot.classList.add('animate');
+
+  setTimeout(() => {
+    cartNotificationDot.classList.remove('animate');
+  }, 1000);
 }
