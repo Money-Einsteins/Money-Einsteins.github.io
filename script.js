@@ -12,6 +12,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
   });
 });
+
 // JavaScript code for all pages
 
 // Retrieve cart items from local storage and display them
@@ -70,12 +71,14 @@ document.addEventListener('click', event => {
   if (event.target.classList.contains('remove-from-cart')) {
     const cartItem = event.target.closest('.cart-item');
     const productTitle = cartItem.querySelector('.product-title').textContent;
+    const quantityElement = cartItem.querySelector('.quantity span');
+    const quantity = parseInt(quantityElement.textContent);
 
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const updatedCartItems = cartItems.map(item => {
       if (item.productTitle === productTitle) {
         if (item.quantity > 1) {
-          item.quantity--; // Decrement the quantity if greater than 1
+          item.quantity -= quantity; // Subtract the specified quantity
         } else {
           return null; // Remove the item from the array if quantity becomes 0
         }
@@ -88,6 +91,53 @@ document.addEventListener('click', event => {
     cartItem.remove();
 
     updateCartNotificationDot(updatedCartItems.length);
+  }
+});
+
+// Increment and decrement quantity functionality
+document.addEventListener('click', event => {
+  if (event.target.classList.contains('increment-quantity')) {
+    const quantityElement = event.target.parentNode.querySelector('span');
+    const quantity = parseInt(quantityElement.textContent);
+
+    const cartItem = event.target.closest('.cart-item');
+    const productTitle = cartItem.querySelector('.product-title').textContent;
+
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const updatedCartItems = cartItems.map(item => {
+      if (item.productTitle === productTitle) {
+        item.quantity++; // Increment the quantity
+      }
+      return item;
+    });
+
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+    quantityElement.textContent = quantity + 1;
+
+    updateCartNotificationDot(updatedCartItems.length);
+  } else if (event.target.classList.contains('decrement-quantity')) {
+    const quantityElement = event.target.parentNode.querySelector('span');
+    const quantity = parseInt(quantityElement.textContent);
+
+    if (quantity > 1) {
+      const cartItem = event.target.closest('.cart-item');
+      const productTitle = cartItem.querySelector('.product-title').textContent;
+
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const updatedCartItems = cartItems.map(item => {
+        if (item.productTitle === productTitle) {
+          item.quantity--; // Decrement the quantity if greater than 1
+        }
+        return item;
+      });
+
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+      quantityElement.textContent = quantity - 1;
+
+      updateCartNotificationDot(updatedCartItems.length);
+    }
   }
 });
 
