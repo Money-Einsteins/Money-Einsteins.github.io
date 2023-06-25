@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartItem = createCartItemElement(item);
     cartItemsContainer.appendChild(cartItem);
   });
-
-  updateCartNotificationDot(cartItems.length);
 });
 
 // Add to cart functionality
@@ -59,10 +57,6 @@ document.addEventListener('click', event => {
     const cartItemsContainer = document.getElementById('cart-items');
     const cartItem = createCartItemElement(item);
     cartItemsContainer.appendChild(cartItem);
-
-    updateCartNotificationDot(cartItems.length);
-
-    animateCartNotificationDot();
   }
 });
 
@@ -71,26 +65,13 @@ document.addEventListener('click', event => {
   if (event.target.classList.contains('remove-from-cart')) {
     const cartItem = event.target.closest('.cart-item');
     const productTitle = cartItem.querySelector('.product-title').textContent;
-    const quantityElement = cartItem.querySelector('.quantity span');
-    const quantity = parseInt(quantityElement.textContent);
 
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const updatedCartItems = cartItems.map(item => {
-      if (item.productTitle === productTitle) {
-        if (item.quantity > 1) {
-          item.quantity -= quantity; // Subtract the specified quantity
-        } else {
-          return null; // Remove the item from the array if quantity becomes 0
-        }
-      }
-      return item;
-    }).filter(item => item !== null);
+    const updatedCartItems = cartItems.filter(item => item.productTitle !== productTitle);
 
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
     cartItem.remove();
-
-    updateCartNotificationDot(updatedCartItems.length);
   }
 });
 
@@ -114,8 +95,6 @@ document.addEventListener('click', event => {
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
     quantityElement.textContent = quantity + 1;
-
-    updateCartNotificationDot(updatedCartItems.length);
   } else if (event.target.classList.contains('decrement-quantity')) {
     const quantityElement = event.target.parentNode.querySelector('span');
     const quantity = parseInt(quantityElement.textContent);
@@ -135,8 +114,6 @@ document.addEventListener('click', event => {
       localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
       quantityElement.textContent = quantity - 1;
-
-      updateCartNotificationDot(updatedCartItems.length);
     }
   }
 });
@@ -160,26 +137,4 @@ function createCartItemElement(item) {
   `;
 
   return cartItem;
-}
-
-// Utility function to update the cart notification dot
-function updateCartNotificationDot(quantity) {
-  const cartNotificationDot = document.getElementById('cart-notification-dot');
-
-  if (quantity > 0) {
-    cartNotificationDot.textContent = quantity;
-    cartNotificationDot.style.display = 'block';
-  } else {
-    cartNotificationDot.style.display = 'none';
-  }
-}
-
-// Utility function to animate the cart notification dot
-function animateCartNotificationDot() {
-  const cartNotificationDot = document.getElementById('cart-notification-dot');
-  cartNotificationDot.classList.add('animate');
-
-  setTimeout(() => {
-    cartNotificationDot.classList.remove('animate');
-  }, 1000);
 }
