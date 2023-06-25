@@ -95,6 +95,7 @@ document.addEventListener('click', event => {
     localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
     quantityElement.textContent = quantity + 1;
+    updateCartItemPrice(cartItem, productTitle, quantity + 1);
   } else if (event.target.classList.contains('decrement-quantity')) {
     const quantityElement = event.target.parentNode.querySelector('span');
     const quantity = parseInt(quantityElement.textContent);
@@ -114,6 +115,7 @@ document.addEventListener('click', event => {
       localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
 
       quantityElement.textContent = quantity - 1;
+      updateCartItemPrice(cartItem, productTitle, quantity - 1);
     }
   }
 });
@@ -137,4 +139,21 @@ function createCartItemElement(item) {
   `;
 
   return cartItem;
+}
+
+// Utility function to update the cart item price
+function updateCartItemPrice(cartItem, productTitle, quantity) {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const updatedCartItems = cartItems.map(item => {
+    if (item.productTitle === productTitle) {
+      item.quantity = quantity;
+    }
+    return item;
+  });
+
+  localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+
+  const productPriceElement = cartItem.querySelector('.product-price');
+  const item = cartItems.find(item => item.productTitle === productTitle);
+  productPriceElement.textContent = `Price: $${(item.productPrice * item.quantity).toFixed(2)}`;
 }
